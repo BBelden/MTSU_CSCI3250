@@ -1,0 +1,44 @@
+R1       EQU   1
+R2       EQU   2
+R3       EQU   3
+R4       EQU   4
+R5       EQU   5
+R6       EQU   6
+IDXR     EQU  29
+#
+START    EQU     $
+#
+         LA      0,$
+         ST      0,LOC1
+         ST      0,LOC2
+         PINT    8,LOC1   # print value at loc and 7 at d1
+         LA      IDXR,0
+TOP      EQU     $
+         LX      R1,I1
+         LX      R2,I2
+         ADDR    R1,R2
+         ST      R1,D2
+         PINT    2,LOC2    # print 2 words at loc2 and d2
+         ADD     IDXR,V2
+         CMP     IDXR,V8
+         JLT     TOP
+         HALT
+#
+LOC1     INT       0
+D1       INT     101
+         INT     102
+         INT     103
+         INT     104
+         INT     105
+         INT     106
+         INT     107
+         INT     108
+#
+         ORG     D1
+I1       INTU    1
+I2       INTU    1
+         ORG     D1+8
+LOC2     INT     0
+D2       INTU    1
+V2       INT     2
+V8       INT     8

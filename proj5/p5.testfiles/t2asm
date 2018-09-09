@@ -1,0 +1,36 @@
+START    EQU     $
+         PINT    1,D1
+         PINT    1,D1END
+#
+         LA      2,D1
+         LA      1,D1END
+         SUBR    1,2    # gets len in r1
+#
+         LA      2,D1
+         LA      3,D2
+TOP      EQU     $
+         STN     1,2
+         STN     1,3
+         ADD     2,V1
+         ADD     3,V1
+         SUB     1,V1
+         CMP     1,V0
+         JGT     TOP
+         L       5,D1
+         PREGS   1,5
+         L       5,D1LAST
+         PREGS   1,5
+         L       5,D2
+         PREGS   1,5
+         L       5,D2LAST
+         PREGS   1,5
+         HALT
+#
+V0       INT         0
+V1       INT         1
+D1       INTU    30000
+D1END    EQU         $
+D1LAST   EQU   D1END-1
+D2       INTU    30000
+D2END    EQU         $
+D2LAST   EQU   D2END-1

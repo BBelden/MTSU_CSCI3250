@@ -1,0 +1,39 @@
+#!/bin/sh
+
+cat <<EOF > tempin
+R10      EQU  10
+R20      EQU  20
+IDXR     EQU  29
+#
+START    EQU     $
+         PINT    10,D1
+#
+         LA      IDXR,0
+         LA      R20,1001
+TOP      EQU     $
+         CMPR    IDXR,R10
+         JLT     TOP
+         PREGS   29,29    # just print the index register
+         PINT    10,D1    # print 10 words at D1
+         HALT
+#
+D0       INTU      10
+D1       INTZ      10
+V1       INT        1
+EOF
+
+./p2 tempin
+
+echo "RMB:  T 0 35 10 34"
+echo "RMB:  R 2"
+echo "RMB:  T 3 6 29 0"
+echo "RMB:  T 6 6 20 1001"
+echo "RMB:  T 9 15 29 10"
+echo "RMB:  T 12 23 0 9"
+echo "RMB:  R 14"
+echo "RMB:  T 15 34 29 29"
+echo "RMB:  T 18 35 10 34"
+echo "RMB:  R 20"
+echo "RMB:  T 21 33 0 0"
+echo "RMB:  Z 34 10"
+echo "RMB:  T 44 1"

@@ -1,0 +1,13 @@
+#!/bin/sh
+
+cat > TEMPIN <<EOF
+A  EQU  100
+B  EQU  A+7
+C  EQU  B-2
+EOF
+
+./p1 TEMPIN
+
+echo
+echo "RMB  A 100 abs   B 107 abs    C 105 abs"
+echo

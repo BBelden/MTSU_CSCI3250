@@ -1,0 +1,31 @@
+
+                        Operating Systems
+                            Project 4
+                            Fall 2014
+
+
+turnin id:  os_p4
+
+Enhance p3 such that your machine can run 2 processes at once, using multiprogramming.
+
+The program should accept four command-line arguments:
+    filename_to_load_1
+    load_point_1
+    filename_to_load_2
+    load_point_2
+
+The program should load two object programs at the specified load points.  Then,
+the machine should begin to execute the first program.  After 2 instructions of
+interpreting program 1, switch to executing program 2 and run it for 2 instructions,
+and then back to program 1, etc.
+    
+
+As usual:
+    1.  use turnin to submit a tar file
+    2.  the tar file must contain:
+            a.  c/c++/python source program
+            b.  makefile that builds a default target named p4 by simply
+                typing the command 'make'
+            c.  if the program is in python, it must contain the correct
+                #! first line and the makefile must copy it to a file named
+                p4 and p4 must be marked as executable using:  chmod +x p4

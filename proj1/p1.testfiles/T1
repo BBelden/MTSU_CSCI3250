@@ -1,0 +1,13 @@
+#!/bin/sh
+
+cat > TEMPIN <<EOF
+A  LA  0,0
+B  LA  3,3
+C  LA  6,6
+EOF
+
+./p1 TEMPIN
+
+echo
+echo "RMB  A 0 rel   B 3 rel   C 6 rel"
+echo

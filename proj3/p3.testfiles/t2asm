@@ -1,0 +1,30 @@
+R1       EQU   1
+R4       EQU   4
+R5       EQU   5
+R6       EQU   6
+R7       EQU   7
+R20      EQU  20
+IDXR     EQU  29
+#
+START    EQU     $
+         LA      0,$
+         ST      0,LOC
+         PINT    8,LOC
+#
+         LA      IDXR,0
+         LA      R1,1
+         LA      R7,7
+         LA      R20,101
+TOP      EQU     $
+         STX     R20,D1
+         ADD     R20,V1
+         ADDR    IDXR,R1
+         CMPR    IDXR,R7
+         JLT     TOP
+         PREGS   29,29    # just print the index register
+         PINT    8,LOC    # print value at loc and 7 at d1
+         HALT
+#
+LOC      INT        0
+D1       INTZ       7
+V1       INT        1

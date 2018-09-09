@@ -1,0 +1,43 @@
+R1       EQU   1
+R2       EQU   2
+R3       EQU   3
+R4       EQU   4
+R5       EQU   5
+R6       EQU   6
+IDXR     EQU  29
+#
+START    EQU     $
+         LA      1,1
+         LA      R2,1001
+         LA      IDXR,0
+FILLD1   EQU     $
+         STX     R2,D1
+         ADDR    R2,1
+         ADDR    IDXR,1
+         CMP     IDXR,V10
+         JLT     FILLD1
+         L       20,D1
+         L       21,D1P9
+         PREGS   20,21
+#
+         LA      IDXR,0
+FILLD2   EQU     $
+         LX      R1,D1
+         ADD     R1,V1000
+         STX     R1,D2
+         ADDR    IDXR,1
+         CMP     IDXR,V10
+         JLT     FILLD2
+         L       20,D2
+         L       21,D2P9
+         PREGS   20,21
+#
+         HALT
+#
+V10      INT       10
+V1000    INT     1000
+D1       INTU      10
+D2       INTU      10
+#
+D1P9     EQU     D1+9
+D2P9     EQU     D2+9

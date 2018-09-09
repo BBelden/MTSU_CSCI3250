@@ -1,0 +1,55 @@
+
+                        Operating Systems
+                            Project 1
+                            Fall 2014
+
+
+turnin id:  os_p1
+
+Write a program that implements pass 1 of an assembler for the language
+described in the langdef.txt file.
+
+Requirements:
+    1.  use turnin to submit a tar file
+    2.  the tar file must contain:
+            a.  c/c++/python source program
+            b.  makefile that builds a default target named p1 by simply
+                typing the command 'make'
+            c.  if the program is in python, it must contain the correct
+                #! first line and the makefile must copy it to a file named
+                p1 and p1 must be marked as executable using:  chmod +x p1
+    3.  p1 must run by typing:
+            ./p1 FILENAME
+        where FILENAME is the name of a file containing a program in our
+        assembly language
+    4.  p1 must print the symbol table to standard output in this format:
+            symbol  location_in_decimal  rel/abs
+
+For example, for this input:
+
+    R0      EQU   0
+            LA    1,1
+    LABEL1  ST    1,I1
+            ST    1,I2
+    LABEL2  EQU   99
+            PINT  2,DATA
+            J     LABEL3
+    DATA    INTZ  12
+    END     EQU   DATA+12  # DATA can not be fwd ref
+            ORG   DATA     # DATA can not be fwd ref
+    I1      INTU  1
+    I2      INTU  1
+            ORG   END      # END can not be fwd ref
+    LABEL3  HALT
+
+the program would print this output:
+
+    R0       0  abs
+    LABEL1   3  rel
+    LABEL2  99  abs
+    DATA    15  rel
+    END     27  rel
+    I1      15  rel
+    I2      16  rel
+    LABEL3  27  rel
+    

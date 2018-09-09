@@ -1,0 +1,8 @@
+./p3  t3obj  9000
+
+echo
+echo "RMB  9000 101 102 103 104 105 106 107"
+echo "RMB  9000 203"
+echo "RMB  9000 207"
+echo "RMB  9000 211"
+echo "RMB  9000 215"

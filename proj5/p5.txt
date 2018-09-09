@@ -1,0 +1,41 @@
+
+                        Operating Systems
+                            Project 5
+                            Fall 2014
+
+
+turnin id:  os_p5
+
+Alter p3 (not p4) such that your machine runs only one program, but that 
+program can have a virtual address space of 64000 words, i.e. 4 times the 
+size of the real memory.
+
+The program will accept one command-line argument:
+    filename_to_load
+Note that we do not specify a load point because the single program  will
+be loaded at location 0.  Note that if the program is larger than 16000 words,
+then you will only load the first 16 pages; the remainder will only be copied
+to your swap space.  Use the FIFO algorithm for choosing frames to swap.
+
+When your program executes the HALT instruction, have it print values showing
+which pages are mapped into the 16 frames.  For example, this print:
+
+    0:  0
+    1:  5
+    2:  63
+    3:  14
+    .....
+
+shows that frame 0 contains page 0, frame 1 contains page 5, frame 2
+contains page 63, frame 3 contains page 14, etc.   And the print would
+continue to print 16 entries, one for each physical frame.
+
+As usual:
+    1.  use turnin to submit a tar file
+    2.  the tar file must contain:
+            a.  c/c++/python source program
+            b.  makefile that builds a default target named p5 by simply
+                typing the command 'make'
+            c.  if the program is in python, it must contain the correct
+                #! first line and the makefile must copy it to a file named
+                p5 and p5 must be marked as executable using:  chmod +x p5

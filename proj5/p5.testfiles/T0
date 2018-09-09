@@ -1,0 +1,6 @@
+#!/bin/sh
+
+./p5  t0obj
+
+echo "RMB:  700"
+echo "RMB:  900"

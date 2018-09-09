@@ -1,0 +1,27 @@
+START    EQU     $
+         LA      0,$
+         ST      0,LOC1
+         ST      0,LOC2
+         ST      0,LOC3
+         PINT    8,LOC1  # print loc1 and 7 values at d1
+#
+         LA      1,D2
+         LA      2,D1
+         LA      3,7
+         MEMCPY  1
+         PINT    8,LOC2  # print loc2 and 7 values at d2
+         PINT    2,LOC3  # print loc3 and 1 value  at d3
+         HALT
+#
+LOC1     INT       0
+D1       INT     101
+         INT     102
+         INT     103
+         INT     104
+         INT     105
+         INT     106
+         INT     107
+LOC2     INT       0
+D2       INTU      7
+LOC3     INT       0
+D3       INT     999

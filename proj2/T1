@@ -1,0 +1,25 @@
+#!/bin/sh
+
+cat <<EOF > tempin
+TOP    NOP
+X      EQU  TOP+12   # rel
+Y      EQU  77       # abs
+       LA   4,X      # create an R record
+       LA   5,Y      # do NOT create an R record
+       HALT
+       INT  88
+       INTZ 10
+       INTU 10
+       INT  99
+EOF
+
+./p2 tempin
+
+echo "RMB:  T   0   1  0   0"
+echo "RMB:  T   3   6  4  12"
+echo "RMB:  R  5"
+echo "RMB:  T   6   6  5  77"
+echo "RMB:  T   9  33  0   0"
+echo "RMB:  T  12  88"
+echo "RMB:  Z  13  10"
+echo "RMB:  T  33  99"

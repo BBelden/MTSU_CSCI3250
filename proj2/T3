@@ -1,0 +1,40 @@
+#!/bin/sh
+
+cat <<EOF > tempin
+IDXR     EQU  29
+START    EQU     $
+#
+         LA      IDXR,0
+TOP      EQU     $
+         CMP     29,V8
+         JLT     TOP
+         HALT
+#
+D1       INT     1001
+         INT     1002
+         INT     1003
+         INT     1004
+D1END    EQU     $
+#
+         ORG     D1
+I1       INTU    1
+I2       INTU    1
+         ORG     D1END
+D2       INT     9999
+V8       INT     8
+EOF
+
+./p2 tempin
+
+echo "RMB:  T 0 6 29 0"
+echo "RMB:  T 3 14 29 17"
+echo "RMB:  R 5"
+echo "RMB:  T 6 23 0 3"
+echo "RMB:  R 8"
+echo "RMB:  T 9 33 0 0"
+echo "RMB:  T 12 1001"
+echo "RMB:  T 13 1002"
+echo "RMB:  T 14 1003"
+echo "RMB:  T 15 1004"
+echo "RMB:  T 16 9999"
+echo "RMB:  T 17 8"

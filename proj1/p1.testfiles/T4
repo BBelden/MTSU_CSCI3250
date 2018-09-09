@@ -1,0 +1,27 @@
+#!/bin/sh
+
+cat > TEMPIN <<EOF
+R0      EQU   0
+        LA    1,1
+LABEL1  ST    1,I1
+        ST    1,I2
+LABEL2  EQU   99
+        PINT  2,DATA
+        J     LABEL3
+DATA    INTZ  12
+END     EQU   DATA+12  # DATA can not be fwd ref
+        ORG   DATA     # DATA can not be fwd ref
+I1      INTU  1
+I2      INTU  1
+        ORG   END      # END can not be fwd ref
+LABEL3  HALT
+
+# whole line of comment
+EOF
+
+./p1 TEMPIN
+
+echo
+echo "RMB   R0 0 abs    LABEL1 3 rel    LABEL2 99 abs    LABEL3 27 rel"
+echo "RMB   DATA 15 rel    END 27 rel    I1 15 rel    I2 16 rel"
+echo

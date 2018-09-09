@@ -1,0 +1,8 @@
+    L   1,D1
+    L   2,D2
+    PREGS   1,2
+    HALT
+    INTU  50000
+D1  INT   700
+    INTU  2000
+D2  INT   900

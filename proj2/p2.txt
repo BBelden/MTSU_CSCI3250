@@ -1,0 +1,59 @@
+
+                        Operating Systems
+                            Project 2
+                            Fall 2014
+
+
+turnin id:  os_p2
+
+Write a program that enhances p1 by implementing pass 2 of an assembler
+for the language described in the langdef.txt file.  The file opcodes.h
+shows the integer values that you should use when generating object code.
+
+Generate code relative to 0 but produce R records in object code to indicate
+which values have to be re-located when the code is loaded later.
+Our system's rule for using R records is quite simple:
+
+    If the value used to specify an address is relative, then create 
+    an R record for that instruction, else do not create one.
+    For example:
+        TOP       NOP
+        X         EQU  TOP+12   # rel
+        Y         EQU  77       # abs
+                  LA   4,X      # create an R record
+                  LA   5,Y      # do NOT create an R record
+                  HALT
+                  INT  88
+                  INTZ 10
+                  INTU 10
+                  INT  99
+
+    would generate:
+
+        T   0   1  0   0
+        T   3   6  4  12
+        T   6   6  5  77
+        T   9  33  0   0
+        T  12  88
+        Z  13  10
+        T  33  99
+        R  5
+
+Note the use of Z record to indicate many zeros for INTZ.
+Note the absence of any special record for INTU, but that the subsequent
+T record shows a higher address thus saving space for the INTU data.
+    
+
+Requirements:
+    1.  use turnin to submit a tar file
+    2.  the tar file must contain:
+            a.  c/c++/python source program
+            b.  makefile that builds a default target named p2 by simply
+                typing the command 'make'
+            c.  if the program is in python, it must contain the correct
+                #! first line and the makefile must copy it to a file named
+                p2 and p2 must be marked as executable using:  chmod +x p2
+    3.  p2 will be run by typing:
+            ./p2 FILENAME
+        where FILENAME is the name of a file containing a program in our
+        assembly language

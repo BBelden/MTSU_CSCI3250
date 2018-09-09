@@ -1,0 +1,2 @@
+I can probably just run p4 with the files from p3, just running
+the same program in two separate processes.

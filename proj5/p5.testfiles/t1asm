@@ -1,0 +1,23 @@
+TOLOC    EQU     40000
+#
+START    EQU     $
+         PINT    1,D1
+         PINT    1,D1END
+#
+         LA      1,TOLOC
+         LA      2,D1
+         LA      3,D1END
+         SUBR    3,2    # gets from len in r3
+         MEMCPY  1
+         LN      4,1
+         PREGS   1,4
+         ADDR    1,3    # r1 now points just past end of toloc
+         SUB     1,V1   #   so back it up to the last word
+         LN      5,1
+         PREGS   1,5
+         HALT
+#
+V1       INT         1
+D1       INT       101
+         INTU    20000
+D1END    INT       909

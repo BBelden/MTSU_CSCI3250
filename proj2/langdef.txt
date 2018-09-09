@@ -1,0 +1,119 @@
+A machine language for a virtual machine is described below.
+
+
+Machine Specs:
+
+    Registers:
+        0-31 (size of int on the host machine)
+            31  program counter 
+            30  flags (condition code, etc.)
+            29  index register
+    Addressing modes:  direct, indirect, and indexed
+    Data types:  integer
+    Instruction length:  3 words
+    Memory:  16000 words (size of int on the host machine) 
+        A single word will contain an integer value, which may be
+        interpreted as an opcode.
+        Only integer arithmetic is supported.
+
+
+Machine Language Specs:
+
+[label]   opcode    [operand][,operand]
+
+Labels must begin in column one.
+The optional label field may contain 1-8 characters.  The opcodes and
+directives may be 1-8 characters.  The operands of the opcodes may each
+be either a label or a simple integer.  The valid opcodes are described
+in detail below.  There are some non-executable directives which perform
+tasks such as reserving memory.  Anything on any line after a # is a
+comment.  You may assume that no arguments will contain a #.  Empty lines
+are OK; note that "empty" lines may contain white space.  White space
+chars (spaces/tabs) are valid between fields of an instruction.  There is
+no white space between operands; they are comma-separated.
+
+
+The Initial Instruction Set:
+
+Directives (non-Executable):
+
+    ORG    args  resets the location counter during assembly;
+                 does NOT support forward ref to a symbol;
+                 may have ONE arithmetic operation (+/-) in the args, but if so,
+                     at least one of the vals must be absolute
+                 may refer to $ meaning "here;
+                 examples:
+                     ORG BUFF
+                     ORG BUFF+10
+                     ORG BUFF-10
+                     ORG $+30
+    EQU    args  enters a symbol into the symbol table during assembly;
+                 does NOT support forward ref to a symbol;
+                 may have ONE arithmetic operation (+/-) in the args, but if so,
+                     at least one of the vals must be absolute
+                 may refer to $ meaning "here";
+                 examples:
+                     R0  EQU  0      # abs
+                     L2  EQU  L1+9   # rel assuming something like: L1 L 4,X
+                     L3  EQU  $+9
+
+    INT    n     reserve 1 word of memory and initialize it to integer n
+    INTZ   n     reserve n words of memory, all initialized to zero
+    INTU   n     reserve n words of memory, but not initialized
+
+
+Arithmetic-logical:
+
+    NOP             no op
+    L     r,n       load reg r with contents of memory loc n
+    LR    r1,r2     load contents of r2 into r1
+    LN    r1,r2     load into r1 the fullword at the address in r2
+    LX    r1,n      load reg r with contents of memory loc n; indexed
+    LA    r,n       load reg r with address of memory loc n
+    ST    r,n       store reg r at loc n
+    STN   r1,r2     store the contents of r1 at the address in r2
+    STX   r,n       store reg r at loc n; indexed
+    ADD   r,n       add contents of loc n to reg r
+    ADDR  r1,r2     add contents of reg r2 to reg r1
+    SUB   r,n       subtract contents of loc n from reg r
+    SUBR  r1,r2     subtract contents of reg r2 from reg r1
+    CMP   r,n       compare reg r to contents of loc n and set CC
+    CMPR  r1,r2     compare reg r1 to contents of reg r2 and set CC
+
+
+Memory-to-Memory Data Movement:
+
+    MEMCPY r
+        r is the first of three consecutive registers:
+            r contains to-address
+            r+1 contains from-address
+            r+2 contains length to copy
+
+
+Flow Control:
+
+    J     n         jump to location n 
+    JR    r         jump to address contained in register r
+    JEQ, JEQR, JNE, JNER, JLT, JLTR, JGT, JGTR, JLE, JLER, JGE, JGER  n/r
+    JSUB  r,n       jump to address n remembering return addr in r
+    JSUBR r1,r2     jump to address in r2 remembering return addr in r1
+    HALT            halt the process
+
+
+Testing and Debugging:
+
+    PREGS  m,n
+        print specified range of registers as integers;
+        for example:    PREGS 5,9
+	    will print registers 5,6,7,8,9
+        print them separated by a single blank, up to 8 registers per line
+
+    PINT m,n
+        print m words of memory as integers beginning at loc n;
+        blank separated and 8 words per line
+
+    All print commands should print a newline at the end.
+
+
+We may add other instructions in future projects.  If so, they will conform
+to the format described above.

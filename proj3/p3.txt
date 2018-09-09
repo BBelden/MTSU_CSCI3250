@@ -1,0 +1,43 @@
+
+                        Operating Systems
+                            Project 3
+                            Fall 2014
+
+
+turnin id:  os_p3
+
+Write a program that will accept input like the obj files in the
+p3.testfiles directory.  Note that the obj files correspond to asm
+files there also.  The obj files are the "same" format as your output
+for p2.  However, note that the address operand for opcodes that take
+a single operand is in the third word.  For example, this line:
+    JLT     TOP
+might generate output something like this:
+    T 33 23 0 21    <--- note 2nd word = 0 and addr of TOP is in 3rd word
+    R 35
+
+The program should implement the virtual machine described in the
+Machine Specs of the langdef.txt file that we have used for reference
+in past assignments.
+
+The program should accept two command-line arguments:
+    filename_to_load
+    load_point
+Load the contents of the file at the specified location in your virtual machine.
+Then, execute the loaded program.  The only things that should print are the 
+results of the print instructions:  PINT and PREGS
+    
+
+Requirements:
+    1.  use turnin to submit a tar file
+    2.  the tar file must contain:
+            a.  c/c++/python source program
+            b.  makefile that builds a default target named p3 by simply
+                typing the command 'make'
+            c.  if the program is in python, it must contain the correct
+                #! first line and the makefile must copy it to a file named
+                p3 and p3 must be marked as executable using:  chmod +x p3
+    3.  p3 will be run by typing:
+            ./p3 FILENAME LOADPT
+        where FILENAME is the name of a file containing an obj file, and
+        where LOADPT is the load point for the object program.
